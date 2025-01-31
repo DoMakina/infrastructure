@@ -13,7 +13,17 @@ services:
       - domakina_mysql_data:/var/lib/mysql
       - ./db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "db", "-u", "dbuser", "-pdbpassword"]
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "db",
+          "-u",
+          "dbuser",
+          "-pdbpassword",
+        ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -35,7 +45,8 @@ services:
     networks:
       - domakina_network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://domakina-minio:9000/minio/health/live"]
+      test:
+        ["CMD", "curl", "-f", "http://domakina-minio:9000/minio/health/live"]
       interval: 30s
       timeout: 10s
       retries: 5
